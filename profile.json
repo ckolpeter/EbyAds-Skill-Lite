@@ -1,0 +1,74 @@
+{
+  "slug": "ebyads",
+  "name": "EbyAds Skill Lite",
+  "platform": "ebay",
+  "market": "US",
+  "currency": "USD",
+  "focus": "eBay General 成交費率／Priority 點擊成本雙模式試算與歸因檢查",
+  "english": "Offline eBay General CPS and Priority CPC planning, fee-base economics and attribution review.",
+  "modes": [
+    "general",
+    "priority"
+  ],
+  "workflows": {
+    "general": [
+      "確認 listing site 與 General 功能",
+      "提供實際廣告計費基礎：不可直接使用淨收入替代",
+      "比較廣告費率、目標利潤與費率上限",
+      "核對目前站點歸因規則及扣費明細"
+    ],
+    "priority": [
+      "確認 Priority CPC 功能",
+      "整理提供的搜尋詞與 listing 條件",
+      "用訂單貢獻及使用者 CVR 情境估算經濟 CPC 上限",
+      "分開閱讀 Direct／Halo 歸因，勿重複加總"
+    ]
+  },
+  "budget_scope": {
+    "general": "ad_fee_reserve_only_not_cpc_daily_budget",
+    "priority": "cpc_campaign_accounting_only"
+  },
+  "notes": [
+    "General is cost-per-sale; Priority is cost-per-click. General effective spend/click is not a CPC bid.",
+    "Ad fee base can include shipping, taxes and other applicable amounts. User must provide fee_base_per_order; never substitute order_revenue.",
+    "Official current attribution page and some older overview pages differ. For affected sites General can use a click by any buyer; no buyer click-order conversion rate is inferred.",
+    "Ad-rate ceilings are economic scenarios, not accepted UI ranges or recommendations to use maximum rates."
+  ],
+  "checklist": [
+    "確認站點與最新 General 歸因規則",
+    "核對成交價、運費、稅及其他計費金額",
+    "平台銷售費另計，不與廣告費重複扣除",
+    "General ad_rate 0.10 表示 10%",
+    "Priority 不套用成交百分比計費邏輯"
+  ],
+  "sources": [
+    {
+      "id": "EBY-1",
+      "title": "Marketing API overview",
+      "url": "https://www.developer.ebay.com/api-docs/sell/marketing/static/overview.html",
+      "checked_on": "2026-10-05",
+      "scope": "eBay",
+      "summary": "General uses CPS; Priority uses CPC; Offsite is outside this v1."
+    },
+    {
+      "id": "EBY-2",
+      "title": "How eBay Advertising attribution works",
+      "url": "https://pages.ebay.com/sell/pl/attribution.html",
+      "checked_on": "2026-10-05",
+      "scope": "Listing-site/date specific",
+      "summary": "Some General attribution uses any-buyer clicks; it is not a same-buyer funnel."
+    },
+    {
+      "id": "EBY-3",
+      "title": "General ad fee explanation",
+      "url": "https://export.ebay.com/in/services-tools/advertising/general-campaign-strategy/",
+      "checked_on": "2026-10-05",
+      "scope": "Regional overview; attribution may lag newer page",
+      "summary": "Ad rate applies to total sale amount including applicable shipping/taxes. Use EBY-2 for current attribution."
+    }
+  ],
+  "skill_id": "ebyads-skill-lite",
+  "repo": "ckolpeter/EbyAds-Skill-Lite",
+  "version": "1.0.0",
+  "source_policy": "2026-10-05 research snapshot; no live capability assertion; refresh manually before operating."
+}

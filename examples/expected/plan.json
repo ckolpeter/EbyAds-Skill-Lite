@@ -1,0 +1,185 @@
+{
+  "contract_name": "ebyads.plan",
+  "contract_version": "1.0",
+  "producer_version": "1.0.0",
+  "kind": "plan",
+  "local_id": "local-683483ebc91079d0",
+  "status": "PLAN_READY",
+  "review": "HUMAN_REVIEW_REQUIRED",
+  "publish_authorized": false,
+  "external_reads": false,
+  "external_writes": false,
+  "generation_mode": "deterministic",
+  "input": {
+    "platform": "ebay",
+    "market": "US",
+    "currency": "USD",
+    "source": {
+      "kind": "synthetic",
+      "note": "All products, money, permissions and results are fictional test data."
+    },
+    "money_decimals": 2,
+    "campaign": {
+      "mode": "general",
+      "days": 14,
+      "budget": "1400",
+      "account_ready": true,
+      "feature_confirmed": true,
+      "target_return": null,
+      "ad_rate": "0.10"
+    },
+    "products": [
+      {
+        "sku": "demo-cup",
+        "title": "Synthetic ceramic cup / 合成示範商品",
+        "stock": 30,
+        "listing_ready": true,
+        "advertising_eligible": true,
+        "buy_box": null,
+        "order_revenue": "100",
+        "order_costs": {
+          "cogs": "35",
+          "platform_fees": "8",
+          "fulfilment": "10",
+          "other": "2"
+        },
+        "target_profit": "10",
+        "expected_cvr": "0.05",
+        "fee_base_per_order": "120",
+        "terms": [
+          "ceramic cup",
+          "陶瓷杯"
+        ]
+      },
+      {
+        "sku": "demo-hold",
+        "title": "Synthetic ceramic cup / 合成示範商品",
+        "stock": 0,
+        "listing_ready": true,
+        "advertising_eligible": true,
+        "buy_box": null,
+        "order_revenue": "100",
+        "order_costs": {
+          "cogs": "35",
+          "platform_fees": "8",
+          "fulfilment": "10",
+          "other": "2"
+        },
+        "target_profit": "10",
+        "expected_cvr": "0.05",
+        "fee_base_per_order": "120",
+        "terms": [
+          "ceramic cup",
+          "陶瓷杯"
+        ]
+      }
+    ],
+    "assets": {
+      "rights_confirmed": null,
+      "live_ready": null
+    }
+  },
+  "result": {
+    "platform_workflow": [
+      "確認 listing site 與 General 功能",
+      "提供實際廣告計費基礎：不可直接使用淨收入替代",
+      "比較廣告費率、目標利潤與費率上限",
+      "核對目前站點歸因規則及扣費明細"
+    ],
+    "products": [
+      {
+        "sku": "demo-cup",
+        "title": "Synthetic ceramic cup / 合成示範商品",
+        "readiness": "PILOT_CANDIDATE",
+        "blocked_by": [],
+        "missing": [],
+        "economics": {
+          "status": "SCENARIO_ONLY",
+          "non_ad_contribution_per_order": "45.000000",
+          "break_even_cpa": "45.000000",
+          "break_even_roas_on_net_revenue": "2.222222",
+          "target_ad_allowance_per_order": "35.000000",
+          "target_roas_on_net_revenue": "2.857143",
+          "economic_cpc_ceiling": null,
+          "general_fee_base": "120.000000",
+          "break_even_ad_rate_fraction": "0.375000",
+          "target_ad_rate_ceiling_fraction": "0.291667",
+          "scenario_general_ad_fee": "12.000000",
+          "contribution_after_general_ad_fee": "33.000000"
+        },
+        "supplied_listing_terms": [
+          "ceramic cup",
+          "陶瓷杯"
+        ],
+        "research_status": "NO_SEARCH_VOLUME_OR_LIVE_KEYWORD_DATA"
+      },
+      {
+        "sku": "demo-hold",
+        "title": "Synthetic ceramic cup / 合成示範商品",
+        "readiness": "BLOCKED",
+        "blocked_by": [
+          "out_of_stock"
+        ],
+        "missing": [],
+        "economics": {
+          "status": "SCENARIO_ONLY",
+          "non_ad_contribution_per_order": "45.000000",
+          "break_even_cpa": "45.000000",
+          "break_even_roas_on_net_revenue": "2.222222",
+          "target_ad_allowance_per_order": "35.000000",
+          "target_roas_on_net_revenue": "2.857143",
+          "economic_cpc_ceiling": null,
+          "general_fee_base": "120.000000",
+          "break_even_ad_rate_fraction": "0.375000",
+          "target_ad_rate_ceiling_fraction": "0.291667",
+          "scenario_general_ad_fee": "12.000000",
+          "contribution_after_general_ad_fee": "33.000000"
+        },
+        "supplied_listing_terms": [
+          "ceramic cup",
+          "陶瓷杯"
+        ],
+        "research_status": "NO_SEARCH_VOLUME_OR_LIVE_KEYWORD_DATA"
+      }
+    ],
+    "budget": {
+      "scope": "ad_fee_reserve_only_not_cpc_daily_budget",
+      "total_cap": "1400.000000",
+      "allocated_total": "1400.000000",
+      "reserve": "0.000000",
+      "allocation": [
+        {
+          "sku": "demo-cup",
+          "pilot_allowance": "1400.000000"
+        }
+      ],
+      "days": 14,
+      "daily_reference_not_live_budget": "100.000000"
+    },
+    "requested_target_return": null,
+    "target_return_validated_for_platform": false,
+    "checklist": [
+      "確認站點與最新 General 歸因規則",
+      "核對成交價、運費、稅及其他計費金額",
+      "平台銷售費另計，不與廣告費重複扣除",
+      "General ad_rate 0.10 表示 10%",
+      "Priority 不套用成交百分比計費邏輯"
+    ],
+    "notes": [
+      "General is cost-per-sale; Priority is cost-per-click. General effective spend/click is not a CPC bid.",
+      "Ad fee base can include shipping, taxes and other applicable amounts. User must provide fee_base_per_order; never substitute order_revenue.",
+      "Official current attribution page and some older overview pages differ. For affected sites General can use a click by any buyer; no buyer click-order conversion rate is inferred.",
+      "Ad-rate ceilings are economic scenarios, not accepted UI ranges or recommendations to use maximum rates.",
+      "All allocations are equal-split pilot accounting scenarios, not optimized bids or live budgets.",
+      "Use net revenue and fully loaded non-ad costs from the same representative order. No platform fees are assumed.",
+      "Reported gross GMV / spend is not directly comparable with a net-revenue break-even threshold.",
+      "Capability confirmations are user assertions, not independently verified account eligibility.",
+      "Review stock, attribution maturity, rights, site rules and changes before taking any manual action."
+    ],
+    "source_refs": [
+      "EBY-1",
+      "EBY-2",
+      "EBY-3"
+    ]
+  }
+}
