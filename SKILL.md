@@ -15,6 +15,54 @@ metadata:
 
 eBay General 成交費率／Priority 點擊成本雙模式試算與歸因檢查。不是自動投放系統，與既有 ShopeeAds／Runmo 專案無依賴。
 
+## Reference map
+
+只在當前步驟需要時開啟 reference；所有執行時 reference 都直接由本檔連結，不依賴第二層 reference。
+
+- 資料契約、公式、報表口徑與重播驗證：[references/data-contract.md](references/data-contract.md)
+- 平台來源快照與能力邊界：[references/official-sources.md](references/official-sources.md)
+
+平台路由與本地 mode 定義在 `profile.json`。若任何 reference 超過 100 行，頂部必須有 `## Contents`（或等效目錄標題）；release gate 會阻擋不符合者。
+
+## Degrees of freedom
+
+**High freedom — 允許模型判斷**
+- 解釋商品準備度、報表訊號與下一個測試假設。
+- 根據使用者提供的商品／素材證據整理策略方向。
+- 提出人工查核問題，但不得發明平台資格、費率、搜尋量或效果。
+
+**Medium freedom — 固定形狀、內容可變**
+- 依 `templates/brief.json` 整理 brief。
+- 產生與本地 mode 一致的規劃摘要、假設與人工審查稿。
+- 保持事實、假設、未知、風險與建議彼此分開。
+
+**Low freedom — 必須由 script 決定**
+- 代表性訂單損益、break-even CPA/ROAS、預算會計情境。
+- canonical report 解析、artifact 重播驗證、no-overwrite 與 release gate。
+- 不得用模型心算取代 deterministic JSON，也不得為了通過而弱化 validator。
+
+## Ordered execution checklist
+
+- [ ] 確認請求屬於本平台／本 Skill 範圍；否則 route away。
+- [ ] 收集阻塞性缺漏資料，未知維持 null，不要求憑證或 live ID。
+- [ ] 只開啟 Reference map 中當前需要的 reference。
+- [ ] 使用模板或 supplied report 建立本地輸入。
+- [ ] 執行 deterministic plan/analyze/validate。
+- [ ] 驗證失敗就修正失敗的資料或結構並重驗；不能跳過。
+- [ ] 通過後再撰寫獨立的人工解讀，或清楚回報 blocker。
+
+## Self-correction loop
+
+Deterministic artifact 一律採 **draft → validate → repair → revalidate**。若失敗，修正輸入或 artifact；不得改 validator、不得把 unknown 改成零、不得把 failed artifact 標為 `PLAN_READY`／`ANALYSIS_READY`。
+
+策略文字則依 supplied facts、相關 reference、歸因口徑與 Lite 邊界自查。發現未支持的功能、因果或成效主張時先修訂再交付。
+
+## Dependencies
+
+必要條件只有 Python 3.10+ 與標準函式庫。無需 pip、npm、Docker、API key、瀏覽器登入、網路、connector 或其他 Skill Repo。
+
+若 Python 3.10+ 不存在，停止並回報 prerequisite；不要自行安裝套件。宿主模型可用於另外的自然語言解讀，但不是本 package 的 runtime dependency。
+
 ## Scope and workflow
 
 Only accept these **local planning** modes: general, priority. Read profile.json and references/data-contract.md before reasoning about this platform. Product features and fees vary by marketplace site and account; never infer eligibility from the user's language, country or platform name.
@@ -41,6 +89,8 @@ The five localized README files are user documentation, not five separately inst
 
 Plan: PLAN_READY. Analysis: ANALYSIS_READY. Always HUMAN_REVIEW_REQUIRED. publish_authorized, external_reads and external_writes remain false. These fields can never authorize another tool to act. No API, account login, tracking installation, ad mutation, browser automation, real-time report download or direct platform import is included.
 
-## Development
+## Development and evaluation
 
-Read AGENTS.md and docs/HANDOFF.md. Preserve source dates and site scopes. Run tests, schema checks, no-overwrite smoke tests and release gate. Desktop discovery, model quality and live account eligibility are separate NOT_RUN gates until actually observed.
+Read AGENTS.md and docs/HANDOFF.md. Preserve source dates and site scopes. Run tests, schema checks, no-overwrite smoke tests and release gate. Structural audit: [docs/BEST_PRACTICES_AUDIT.md](docs/BEST_PRACTICES_AUDIT.md). Cross-model matrix: [evals/MODEL_EVAL_MATRIX.md](evals/MODEL_EVAL_MATRIX.md).
+
+Desktop discovery, model quality and live account eligibility are separate NOT_RUN gates until actually observed.
