@@ -11,6 +11,6 @@ Scope: `ebyads-skill-lite` only. This is an implementation audit, not platform c
 | Ordered checklist | PASS | The Skill includes a concise order-sensitive checklist and failure-return rule. |
 | Self-correction loop | PASS | Draft → validate → repair → revalidate is explicit and validators cannot be weakened. |
 | Dependencies are explicit and portable | PASS | Python 3.10+ standard library only; no third-party runtime package or network dependency. |
-| Cross-model evaluation | NOT_RUN | Required lanes are defined in `evals/MODEL_EVAL_MATRIX.md`; real host/model runs remain pending. |
+| Cross-model evaluation | PASS (scoped AUTOMATED_SMOKE) | Historical reconciled smoke evidence: Haiku PASS_WITH_WARNINGS, Sonnet PASS, Opus PASS_WITH_WARNINGS; warnings: REPORT_PARSE_FAILED. No FAIL or INVALID_RUN. |
 
 A release-gate PASS proves repository structure and deterministic invariants only. It does not prove platform feature availability, seller eligibility, attribution quality, model quality, or advertising performance.
